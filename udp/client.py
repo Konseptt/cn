@@ -1,19 +1,19 @@
 import socket
 
 # Create a socket object for the client (UDP)
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Define the server address and port
-server_addr = ('192.168.56.1', 59)
+addr = ('192.168.56.1', 59)
 
 # Request a file from the server
 file_request = input("Enter the filename to request from the server: ")
 
 # Send the file request to the server
-client_socket.sendto(file_request.encode(), server_addr)
+socket.sendto(file_request.encode(), addr)
 
 # Receive the file data from the server
-file_data, server_addr = client_socket.recvfrom(1024)
+file_data, addr = socket.recvfrom(1024)
 
 # Save the received data to a file prefixed with 'received_'
 if file_data == b"File not found.":
@@ -24,4 +24,4 @@ else:
     print(f"File saved as 'received_{file_request}'")
 
 # Close the client socket
-client_socket.close()
+socket.close()
